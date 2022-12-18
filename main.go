@@ -112,14 +112,14 @@ func handleCrawl(database *Database) {
 
 			name := strings.TrimSpace(doc.Find("#aod-asin-title-text").Text())
 			price := strings.TrimSpace(doc.Find(".a-offscreen").First().Text())
-			image, _ := doc.Find("#aod-asin-image-id").Attr("src")
+			//image, _ := doc.Find("#aod-asin-image-id").Attr("src")
 
 			if product.Price != price {
 				if _, sendErr := bot.Send(tgbotapi.MessageConfig{
 					BaseChat: tgbotapi.BaseChat{
 						ChatID: product.ChatID,
 					},
-					Text: fmt.Sprintf("%s\n%s\n%s\n", name, price, image),
+					Text: fmt.Sprintf("%s\n%s", name, price),
 				}); sendErr != nil {
 					panic(sendErr)
 				}

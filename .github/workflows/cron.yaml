@@ -1,0 +1,32 @@
+name: CRON
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 * * * *'
+
+env:
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+
+jobs:
+  worker:
+    name: Worker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+      - name: Download Dependencies
+        run: go mod download
+      - name: Run
+        run: go run .
+      - name: Push Changes
+        run: |
+          git config --global user.name 'Yunus Sandıkcı'
+          git config --global user.email 'yunussandikci@outlook.com'
+          git add .
+          if [[ `git status --porcelain` ]]; then
+            git commit -am "Automated Update"
+            git push
+          fi

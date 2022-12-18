@@ -1,0 +1,24 @@
+linters:
+  enable-all: true
+  disable:
+    - exhaustruct
+    - exhaustivestruct
+    - wrapcheck
+    - gochecknoinits
+    - ireturn
+    - gci
+    - interfacer
+    - gosec
+    - gochecknoglobals
+    - noctx
+
+linters-settings:
+  funlen:
+    lines: 90
+  cyclop:
+    max-complexity: 15
+  nestif:
+    min-complexity: 15
+run:
+  go: '1.19'
+  tests: false

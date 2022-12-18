@@ -1,4 +1,4 @@
-name: CRON
+name: Cron
 
 on:
   workflow_dispatch:

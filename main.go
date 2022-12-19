@@ -100,7 +100,8 @@ func handleCrawl(database *Database) {
 			}
 
 			if resp.StatusCode != http.StatusOK {
-				panic(getErr)
+				fmt.Printf("Status is not OK; status:%d", resp.StatusCode)
+				return
 			}
 
 			doc, err := goquery.NewDocumentFromReader(resp.Body)

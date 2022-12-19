@@ -3,7 +3,7 @@ name: Cron
 on:
   workflow_dispatch:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/10 * * * *'
 
 env:
   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}

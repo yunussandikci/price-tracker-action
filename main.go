@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -16,6 +17,7 @@ var (
 	fsDatabase fsdatabase.FSDatabase[Database]
 	config     *Config
 	bot        *tgbotapi.BotAPI
+	digitCheck = regexp.MustCompile(`^[0-9]+$`)
 )
 
 func main() {
@@ -113,9 +115,8 @@ func handleCrawl(database *Database) {
 
 			name := strings.TrimSpace(doc.Find("#aod-asin-title-text").Text())
 			price := strings.TrimSpace(doc.Find(".a-offscreen").First().Text())
-			//image, _ := doc.Find("#aod-asin-image-id").Attr("src")
 
-			if product.Price != price {
+			if product.Price != price && len(price) > 0 && digitCheck.MatchString(string(price[0])) {
 				if _, sendErr := bot.Send(tgbotapi.MessageConfig{
 					BaseChat: tgbotapi.BaseChat{
 						ChatID: product.ChatID,

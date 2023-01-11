@@ -1,4 +1,4 @@
-module banazor
+module price-tracker-action
 
 go 1.19
 
